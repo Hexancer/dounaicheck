@@ -14,11 +14,7 @@ jobs:
       - name: Pull image
         run: docker pull xiaobinqt/dounai-checkin:v2
 
+        
       - name: Run dounai
-        run: |
-          docker run --rm \
-            xiaobinqt/dounai-checkin:v2 \
-            ./dounai start \
-            --password "${{ secrets.DOUNAI_PASSWORD }}" \
-            --email "${{ secrets.DOUNAI_EMAIL }}"
+        run: docker run --rm xiaobinqt/dounai-checkin:v2 ./dounai start --password "${{ secrets.DOUNAI_PASSWORD }}" --email "${{ secrets.DOUNAI_EMAIL }}"
 
