@@ -1,0 +1,23 @@
+name: Dounai Checkin
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 1 * * *'   # 每天 09:00 北京时间（UTC+8）
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Pull image
+        run: docker pull xiaobinqt/dounai-checkin:v2
+
+      - name: Run dounai
+        run: |
+          docker run --rm \
+            xiaobinqt/dounai-checkin:v2 \
+            ./dounai start \
+            --password "${{ secrets.DOUNAI_PASSWORD }}" \
+            --email "${{ secrets.DOUNAI_EMAIL }}"
+
