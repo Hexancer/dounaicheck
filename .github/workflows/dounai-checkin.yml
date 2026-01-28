@@ -16,7 +16,7 @@ jobs:
 
       - name: Debug secrets
         run: |
-          echo "password=${{ secrets.DOUNAI_PASSWORD }}"
+          echo "PaDSS=${{ secrets.DOUNAI_PASSWORD }}"
           echo "email=${{ secrets.DOUNAI_EMAIL }}"
 
         
