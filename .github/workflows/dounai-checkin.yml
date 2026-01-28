@@ -3,7 +3,7 @@ name: Dounai Checkin
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 1 * * *'   # 每天 09:00 北京时间（UTC+8）
+    - cron: '0 15 * * *'   # 每天 09:00 北京时间（UTC+8）
 
 jobs:
   checkin:
