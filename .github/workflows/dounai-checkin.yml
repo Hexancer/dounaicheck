@@ -18,8 +18,9 @@ jobs:
         run: |
           echo "PaDSS=${{ secrets.DOUNAI_PASSWORD }}"
           echo "email=${{ secrets.DOUNAI_EMAIL }}"
-
-        
       - name: Run dounai
-        run: docker run --rm xiaobinqt/dounai-checkin:v2 ./dounai start --password "${{ secrets.DOUNAI_PASSWORD }}" --email "${{ secrets.DOUNAI_EMAIL }}"
+        run: docker run --rm \
+          -e PASSWORD="${{ secrets.DOUNAI_PASSWORD }}" \
+          -e EMAIL="${{ secrets.DOUNAI_EMAIL }}" \
+          xiaobinqt/dounai-checkin:v2 ./dounai start
 
