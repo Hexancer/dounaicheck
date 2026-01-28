@@ -1,24 +1,20 @@
-name: Dounai Checkin
+name: Dounai Scheduled Tasks
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 23 * * *'   # 每天 09:00 北京时间（UTC+8）
-    - cron: '0 15 * * *'   # 每天 09:00 北京时间（UTC+8）
+    # 每天 09:30 中国时间 → 01:30 UTC
+    - cron: '01 01 * * *'
+    # 每天 01:30 中国时间 → 17:30 UTC 前一天
+    - cron: '17 17 * * *'
 
 jobs:
-  checkin:
+  dounai:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Pull image
+      - name: Pull Docker image
         run: docker pull xiaobinqt/dounai-checkin:v2
 
-      - name: Debug secrets
-        run: |
-          echo "PaDSS=${{ secrets.DOUNAI_PASSWORD }}"
-          echo "email=${{ secrets.DOUNAI_EMAIL }}"
-
-      - name: Run dounai
-        run: docker run --rm --stop-timeout 300 -e PASSWORD="${{ secrets.DOUNAI_PASSWORD }}" -e EMAIL="${{ secrets.DOUNAI_EMAIL }}" xiaobinqt/dounai-checkin:v2 ./dounai start
+      - name: Run dounai for 1 hour
+        run: timeout 2m docker run --rm -e PASSWORD="${{ secrets.DOUNAI_PASSWORD }}" -e EMAIL="${{ secrets.DOUNAI_EMAIL }}" xiaobinqt/dounai-checkin:v2 ./dounai start
 
